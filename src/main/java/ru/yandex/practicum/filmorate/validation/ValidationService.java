@@ -8,6 +8,7 @@ import java.util.Map;
 public interface ValidationService {
 
     void validate(User user, Map<Long, User> usersMap);
+
     void validateUpdate(User user, Map<Long, User> usersMap);
 
     void validate(Film film);
