@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
@@ -14,7 +13,7 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
-    ValidationServiceImp validationService = new ValidationServiceImp();
+    private final ValidationServiceImp validationService = new ValidationServiceImp();
     private final Map<Long, User> users = new HashMap<>();
 
     @GetMapping
@@ -23,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@Valid @RequestBody User newUser) {
+    public User createUser(@RequestBody User newUser) {
         log.info("Получен запрос на создание нового пользователя: {}", newUser);
         // проверяем выполнение необходимых условий
         validationService.validate(newUser, users);
@@ -35,7 +34,7 @@ public class UserController {
     }
 
     @PutMapping
-    public User updateUser(@Valid @RequestBody User updateUser) {
+    public User updateUser(@RequestBody User updateUser) {
         log.info("Получен запрос на обновление пользователя: {}", updateUser);
         validationService.validateUpdate(updateUser, users);
         users.put(updateUser.getId(), updateUser);

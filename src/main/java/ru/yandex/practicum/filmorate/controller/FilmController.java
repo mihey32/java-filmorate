@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -14,7 +13,7 @@ import java.util.Map;
 @RequestMapping("/films")
 public class FilmController {
 
-    ValidationServiceImp validationService = new ValidationServiceImp();
+    private final ValidationServiceImp validationService = new ValidationServiceImp();
     private final Map<Long, Film> films = new HashMap<>();
 
     @GetMapping
@@ -23,7 +22,7 @@ public class FilmController {
     }
 
     @PostMapping
-    public Film addFilm(@Valid @RequestBody Film newFilm) {
+    public Film addFilm(@RequestBody Film newFilm) {
         log.info("Получен запрос на создание нового пользователя: {}", newFilm);
         validationService.validate(newFilm);
         newFilm.setId(getNextId());
@@ -33,7 +32,7 @@ public class FilmController {
     }
 
     @PutMapping
-    public Film updateFilm(@Valid @RequestBody Film updateFilm) {
+    public Film updateFilm(@RequestBody Film updateFilm) {
         log.info("Получен запрос на создание нового пользователя: {}", updateFilm);
         validationService.validateUpdate(updateFilm, films);
         films.put(updateFilm.getId(), updateFilm);

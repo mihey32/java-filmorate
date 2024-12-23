@@ -4,18 +4,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import java.time.LocalDate;
 
-/**
- * Film.
- */
 
 @Data
 @EqualsAndHashCode(exclude = {"id"})
 public class Film {
 
-    Long id;
-    String name;
-    String description;
-    LocalDate releaseDate;
-    int duration;
+    private Long id;
+    private String name;
+    private String description;
+    private LocalDate releaseDate;
+    private int duration;
 
 }
